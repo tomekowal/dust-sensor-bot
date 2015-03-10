@@ -11,14 +11,10 @@ class DustSensorBot(ClientXMPP):
         self.room = room
         self.nick = nick
         self.add_event_handler("session_start", self.session_start)
-        print self.nick
 
     def session_start(self, event):
-        print "session started"
         retval = self.get_roster()
-        print retval
         retval = self.send_presence()
-        print retval
         retval = self.plugin['xep_0045'].joinMUC(self.room,
                                         self.nick,
                                         wait=True)
@@ -34,7 +30,7 @@ if __name__ == '__main__':
     room = 'malopolska@muc.localhost'
     xmpp = DustSensorBot('dust_sensor@localhost', 'dust_sensor', room, 'dust_sensor')
     xmpp.register_plugin('xep_0045')
-    xmpp.connect(('xmpp.lambdadays.org', 5222))
+    xmpp.connect(('31.172.186.54', 5222))
     xmpp.process(block=False)
     ser = serial.Serial('/dev/tty.usbmodem641', 9600) # Establish the connection on a specific port
 
